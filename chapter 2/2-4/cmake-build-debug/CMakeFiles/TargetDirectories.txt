@@ -1,0 +1,3 @@
+/Users/boyi/c-programming-lang/2-4/cmake-build-debug/CMakeFiles/rebuild_cache.dir
+/Users/boyi/c-programming-lang/2-4/cmake-build-debug/CMakeFiles/edit_cache.dir
+/Users/boyi/c-programming-lang/2-4/cmake-build-debug/CMakeFiles/2_4.dir
