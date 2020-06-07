@@ -47,5 +47,5 @@ void day_of_month(unsigned int year, unsigned int yearday, int *pmonth, int *pda
 
 int isleap(int year)
 {
-    return year%4 == 0 && year%100 != 0 || year%400 == 0;
+    return (year%4 == 0 && year%100) != 0 || year%400 == 0;
 }
