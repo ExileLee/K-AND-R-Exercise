@@ -17,10 +17,9 @@ if there are no arguments.
 
 void input_to_tabs(char *[], int);
 int getLine(char *s, int maxlen);
-void detab(char *line, char *output);
+void entab(char *line, char *output);
 
 int stops[MAXSTOP], stopcount;
-
 int main(int argc, char *argv[])
 {
     input_to_tabs(argv, argc);
@@ -29,7 +28,7 @@ int main(int argc, char *argv[])
 
     while (getLine(line, MAXLENGTH) > 0)
     {
-        detab(line, result);
+        entab(line, result);
         printf("%s\n", result);
     }
 
@@ -71,40 +70,49 @@ void input_to_tabs(char *input[], int inputc)
     }
 }
 
-void detab(char *line, char *output)
+void entab(char *line, char *output)
 {
-    int i, j, col, stopi;
+    int i, j, k, col, stopi, stop;
     i = j = stopi = 0;
     col = 1;
-    int stop = stops[stopi];
+    stop = stops[stopi];
 
     while (line[i])
     {
-        if (line[i] != '\t')
+        if (line[i] != ' ')
         {
             col++;
             output[j++] = line[i++];
             continue;
         }
 
-        if (col > stop)
+        int tabc, space;
+
+        for (tabc = 0, space = 0; line[i] == ' '; i++, col++)
         {
-            if (stopi == stopcount - 1)
+            if (col > stop)
             {
-                stop = DEFAULTSTOP;
-                col = 1;
+                if (stopi == stopcount - 1)
+                {
+                    stop = DEFAULTSTOP;
+                    col = 1;
+                }
+                else
+                    stop = stops[++stopi];
+            }
+            if (col == stop)
+            {
+                tabc++;
+                space = 0;
             }
             else
-            {
-                stop = stops[++stopi];
-            }
+                space++;
         }
 
-        while (line[++i] == '\t')
-            ;
-        int banks = stop - col;
+        for (k = 0; k < tabc; k++)
+            output[j++] = '\t';
 
-        for (int b = 0; b < banks; b++, col++)
+        for (k = 0; k < space; k++)
             output[j++] = ' ';
     }
 
