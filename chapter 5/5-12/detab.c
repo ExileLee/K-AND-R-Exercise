@@ -12,14 +12,12 @@ Choose convenient (for the user) default behavior.
 #include <stdlib.h>
 #include <ctype.h>
 
-#define DEFAULTSTOP 4
-#define MAXSTOP 100
 #define MAXLENGTH 1000
 
 int getLine(char *s, int maxlen);
 void detab(char *line, char *output);
-
 int stop = 4;
+
 int main(int argc, char *argv[])
 {
     char line[MAXLENGTH];
