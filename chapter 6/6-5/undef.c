@@ -29,12 +29,11 @@ int main(int argc, char *argv[])
 
     undef("Metal");
 
-    char val[LINEMAXLENGTH];
+    char key[LINEMAXLENGTH];
 
-
-    while (readline(val) > 0)
+    while (readline(key) > 0)
     {
-        if (lookup(val) == NULL)
+        if (lookup(key) == NULL)
             printf("Not Found\n");
         else
             printf("Found\n");
