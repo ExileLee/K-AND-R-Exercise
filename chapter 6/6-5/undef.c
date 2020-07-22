@@ -83,14 +83,16 @@ int undef(char *name)
     struct nlist *np;
 
     if ((np = lookup(name)) == NULL)
-        return 0;
+        return 1;
 
     if (np->prev == NULL)
         hashtable[hash(name)] = np->next;
     else    
         np->prev->next = np->next;
     
-    return 1;   
+    free((void *)np);
+
+    return 0;   
 }
 
 unsigned long hash(char *s)
