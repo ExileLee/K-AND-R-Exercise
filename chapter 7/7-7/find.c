@@ -4,6 +4,7 @@
 
 #define MAXLINE 1000
 #define MAXFILES 10
+#define PATTERNARGCOUNT 1
 
 typedef struct _input
 {
@@ -13,16 +14,16 @@ typedef struct _input
 
 static int except = 0, number = 0;
 
-void find(Input *, char *);
+void findAll(Input *[], int, char *);
 
 int main(int argc, char *argv[])
 {
-    Input file[MAXFILES];
+    Input *files[MAXFILES];
     char c;
-    int i;
-    for (i = 1; i < argc && argv[i][0] == '-'; i++)
+    int argIndex;
+    for (argIndex = 1; argIndex < argc && argv[argIndex ][0] == '-'; argIndex ++)
     {
-        while ((c = *++argv[i]))
+        while ((c = *++argv[argIndex]))
         {
             switch (c)
             {
@@ -40,7 +41,7 @@ int main(int argc, char *argv[])
         }
     }
 
-    int fileCount = argc - i - 1;
+    int fileCount = argc - argIndex - PATTERNARGCOUNT;
 
     if (fileCount < 1)
     {
@@ -53,20 +54,24 @@ int main(int argc, char *argv[])
         return 1;
     }
 
-    for (int j = 0; i < argc - 1; i++, j++)
+    for (int j = 0; argIndex  < argc - 1; argIndex ++, j++)
     {
-        file[j].file = fopen(argv[i], "r");
-        file[j].fileName = argv[i];
+        files[j]->file = fopen(argv[argIndex ], "r");
+        files[j]->fileName = argv[argIndex];
     }
 
     char *pattern = argv[argc - 1];
-
-    for (i = 0; i < fileCount; i++)
-    {
-        find(&file[i], pattern);
-    }
+    
+    findAll(files, fileCount, pattern);
 
     return 0;
+}
+
+void findAll(Input *input[], int intputCount, char *pattern)
+{
+    void find(Input *, char *);
+    for (int i = 0; i < intputCount; i++)
+        find(input[i], pattern);
 }
 
 void find(Input *input, char *pattern)
